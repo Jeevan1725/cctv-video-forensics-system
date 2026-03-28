@@ -1,12 +1,23 @@
-# CCTV Video Forensics System
-### Analog CCTV Video Forensics: Acquisition, Integrity Verification & Tamper Detection
+# 🔬 CCTV Video Forensics System
 
-> **Rajkushal Guduru & Jeevan** · B.Tech CSE – Cybersecurity · Amrita Vishwa Vidyapeetham  
-> Course: Cyber Forensics · Semester VI
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=flat&logo=python&logoColor=white)
+![PyTorch](https://imgshields.io/badge/PyTorch-AI_Anomaly_Detection-EE4C2C.svg?style=flat&logo=pytorch&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-Premium_GUI-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-REST_Backend-009688.svg?style=flat&logo=fastapi&logoColor=white)
+![Cyber Security](https://img.shields.io/badge/Cyber_Security-Forensics_Hashing-0D1117.svg?style=flat&logo=springsecurity&logoColor=white)
 
-A complete forensic framework for verifying the authenticity of CCTV surveillance footage — implementing cryptographic integrity verification, frame-level tamper detection, and AI-based anomaly analysis.
+> **Analog CCTV Video Forensics: Acquisition, Integrity Verification & Tamper Detection**  
+> *Rajkushal Guduru & Jeevan* · B.Tech CSE – Cybersecurity · Amrita Vishwa Vidyapeetham · Semester VI
+
+A complete, state-of-the-art forensic framework for verifying the authenticity of CCTV surveillance footage. Implements cryptographic integrity verification, frame-level tamper detection, and an AI-based convolutional autoencoder for anomaly analysis. All tied together with a stunning, modern dark-mode GUI.
 
 **AI Model Performance:** 92.47% precision · 83.78% recall · 87.91% F1 · 0.7438 AUC (UCSD Ped2)
+
+<br>
+
+![Dashboard Preview](assets/dashboard_preview.png)
+
+<br>
 
 ---
 
