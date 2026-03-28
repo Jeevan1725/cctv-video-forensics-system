@@ -33,28 +33,23 @@ This project implements the complete forensic workflow from the Cyber Forensics 
 
 ---
 
-## 🚀 Quick Start
-
-### Use the Live Demo (No Installation)
-
-1. **Visit:** https://video-anomaly-detection-dashboard.onrender.com
-2. **Upload** a CCTV video (MP4, AVI, MOV)
-3. **Generate** SHA-256 hash (Step 2 — Evidence Preservation)
-4. **Run** Full Forensic Analysis (Steps 4 & 5)
-5. **Download** the forensic report
-
 ---
+
+## 🚀 Quick Start
 
 ### Run Locally
 
 **Requirements:**
 - Python 3.10+
 - 2GB disk space
-- Optional: NVIDIA GPU for faster processing
 
 **Setup:**
 
 ```bash
+# Clone the repository
+git clone https://github.com/Jeevan1725/cctv-video-forensics-system.git
+cd cctv-video-forensics-system
+
 # Install dependencies
 pip install -r requirements.txt
 
@@ -67,11 +62,12 @@ streamlit run dashboard.py
 # Dashboard opens at http://localhost:8501
 ```
 
-**Why run locally?**
-- **Faster processing** with GPU (0.2s vs 5-10s per video)
-- **Offline use** - no internet required
-- **Privacy** - your videos never leave your computer
-- **Custom configuration** - adjust all settings
+**Forensic Workflow:**
+1. **Upload** a CCTV video (MP4, AVI) to the dashboard.
+2. **Generate** SHA-256 hash (Step 2 — Evidence Preservation).
+3. **Run** Full Forensic Analysis to check frame continuity, metadata, and AI anomalies.
+4. **Simulate** Tampering (Step 3) to test the detection system.
+5. **Download** the generated forensic report (JSON/TXT).
 
 ---
 
@@ -105,32 +101,14 @@ Adjust sensitivity to match your needs:
 
 ## 💡 Use Cases
 
-### Security Monitoring
-```python
-# Analyze camera feed for unusual activity
-response = requests.post(
-    "https://video-anomaly-detection-api.onrender.com/analyze-video",
-    files={"file": open("camera_feed.mp4", "rb")}
-)
+### Legal Evidence Authentication
+- Ensure CCTV footage has not been modified before presenting in court.
+- Maintain chain of custody with SHA-256 cryptographic hashing.
 
-if response.json()["anomaly_rate"] > 0.15:
-    send_security_alert()  # Trigger alert if >15% anomalous frames
-```
-
-### Retail Analytics
-- Detect unusual customer behavior
-- Identify potential shoplifting patterns
-- Monitor restricted area access
-
-### Public Safety
-- Identify crowd anomalies
-- Detect abandoned objects
-- Monitor pedestrian flow irregularities
-
-### Quality Control
-- Manufacturing line anomaly detection
-- Process monitoring
-- Equipment malfunction detection
+### Security & Investigations
+- Detect deliberate frame deletions intended to hide incidents.
+- Identify video cuts and re-encoding attempts.
+- Use convolutional autoencoders to spot anomalous timeline events automatically.
 
 ---
 
@@ -139,29 +117,14 @@ if response.json()["anomaly_rate"] > 0.15:
 ### Analyze Video
 
 ```http
-POST /analyze-video
+POST /forensic-analyze
 Content-Type: multipart/form-data
 ```
 
 **Example:**
 ```bash
-curl -X POST "https://video-anomaly-detection-api.onrender.com/analyze-video" \
-  -F "file=@your_video.mp4"
-```
-
-**Response:**
-```json
-{
-  "frame_count": 60,
-  "anomaly_count": 8,
-  "anomaly_rate": 0.13,
-  "anomaly_scores": [0.002, 0.008, 0.012, ...],
-  "processing_time": 0.85,
-  "model_info": {
-    "device": "cuda",
-    "threshold": 0.005069
-  }
-}
+curl -X POST "http://localhost:8000/forensic-analyze?analyst=Jeevan" \
+  -F "file=@test_videos/realistic_anomaly.mp4"
 ```
 
 ### Set Threshold Preset
@@ -251,19 +214,21 @@ Anomaly Flags + Scores
 
 ## 📂 Project Structure
 
-```
-├── app.py                    # FastAPI web service
-├── dashboard.py              # Streamlit interactive UI
+```text
+├── app.py                    # FastAPI backend & forensic endpoints
+├── dashboard.py              # Streamlit forensic analysis dashboard
 ├── settings.py               # Configuration management
-├── models/
-│   ├── autoencoder.py        # Neural network architecture
-│   └── detector.py           # Training and inference
-├── data/
-│   ├── preprocessing.py      # Video frame extraction
-│   └── dataset.py            # Data loading utilities
-├── outputs/
-│   └── trained_model.pth     # Pre-trained model weights
-└── requirements.txt          # Python dependencies
+├── forensics/                # Core forensic modules
+│   ├── hashing.py            # SHA-256 integrity verification
+│   ├── frame_analysis.py     # Frame gap/duplicate detection
+│   ├── tampering_simulator.py# Simulate deletion, cuts, re-encoding
+│   ├── metadata_inspector.py # Inspect video file metadata
+│   └── report_generator.py   # Generate JSON/TXT forensic reports
+├── models/                   # AI Detection Models
+│   ├── autoencoder.py        # Convolutional neural network architecture
+│   └── detector.py           # Anomaly inference logic
+├── outputs/                  # Saved hashes, reports, and AI models
+└── test_videos/              # Sample footage for forensic testing
 ```
 
 ---
@@ -595,8 +560,8 @@ UCSD Ped2 dataset used under academic license for training.
 
 ## 🤝 Contributing
 
-Found a bug? Have a suggestion? Open an issue on [GitHub](https://github.com/Aaryan2304/cctv-video-anomaly-detection/issues).
+Found a bug? Have a suggestion? Open an issue on [GitHub](https://github.com/Jeevan1725/cctv-video-forensics-system/issues).
 
 ---
 
-**Built with ❤️ for surveillance and security applications**
+**Built with ❤️ for Cyber Forensics**
