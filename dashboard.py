@@ -40,131 +40,278 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
 
+/* Base typography */
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif !important; letter-spacing: -0.02em; }
 
-/* Dark forensic theme */
-.stApp { background: #0d1117; color: #e6edf3; }
-[data-testid="stSidebar"] { background: #161b22; border-right: 1px solid #30363d; }
-[data-testid="stSidebar"] * { color: #e6edf3 !important; }
+/* Remove ugly top padding to feel like a real web app */
+.block-container { padding-top: 1.5rem !important; padding-bottom: 2rem !important; }
+header[data-testid="stHeader"] { background: transparent !important; }
+footer { display: none !important; }
 
-/* Metric cards */
-[data-testid="metric-container"] {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 12px;
+/* Dark forensic theme + subtle noise texture */
+.stApp { 
+    background-color: #0b0f19;
+    background-image: radial-gradient(circle at 15% 50%, rgba(31, 111, 235, 0.08), transparent 25%),
+                      radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.08), transparent 25%);
+    color: #e2e8f0; 
 }
 
-/* Tab styling */
+/* Glassmorphism Sidebar */
+[data-testid="stSidebar"] { 
+    background: rgba(15, 20, 31, 0.85) !important; 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important; 
+}
+[data-testid="stSidebar"] * { color: #e2e8f0 !important; }
+
+/* Premium Metric cards */
+[data-testid="metric-container"] {
+    background: rgba(22, 27, 34, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+[data-testid="metric-container"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(88, 166, 255, 0.3);
+}
+
+/* Glass Tab styling */
+[data-testid="stTabs"] { background: transparent; }
 [data-testid="stTabs"] button {
-    background: #161b22;
-    border: 1px solid #30363d;
+    background: rgba(22, 27, 34, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     color: #8b949e;
-    border-radius: 6px 6px 0 0;
-    font-weight: 500;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 [data-testid="stTabs"] button[aria-selected="true"] {
-    background: #1f6feb;
-    color: #ffffff;
-    border-color: #1f6feb;
+    background: rgba(31, 111, 235, 0.15);
+    color: #58a6ff;
+    border-color: rgba(31, 111, 235, 0.4);
+    border-bottom: 2px solid #58a6ff;
+}
+
+/* Animations for Badges */
+@keyframes pulseRed {
+    0% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(248, 81, 73, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0); }
+}
+@keyframes pulseGreen {
+    0% { box-shadow: 0 0 0 0 rgba(46, 160, 67, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(46, 160, 67, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 160, 67, 0); }
 }
 
 /* Status verdict badges */
 .verdict-intact {
-    background: #0d4429;
+    background: rgba(13, 68, 41, 0.6);
+    backdrop-filter: blur(4px);
     border: 1px solid #2ea043;
-    color: #3fb950;
-    padding: 8px 16px;
-    border-radius: 6px;
+    color: #4ade80;
+    padding: 8px 18px;
+    border-radius: 8px;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
     display: inline-block;
     margin: 4px 0;
+    box-shadow: 0 0 12px rgba(46, 160, 67, 0.2);
+    animation: pulseGreen 2s infinite;
 }
 .verdict-tampered {
-    background: #4a0d0d;
+    background: rgba(74, 13, 13, 0.6);
+    backdrop-filter: blur(4px);
     border: 1px solid #f85149;
-    color: #ff7b72;
-    padding: 8px 16px;
-    border-radius: 6px;
+    color: #f87171;
+    padding: 8px 18px;
+    border-radius: 8px;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
     display: inline-block;
     margin: 4px 0;
+    box-shadow: 0 0 12px rgba(248, 81, 73, 0.2);
+    animation: pulseRed 2s infinite;
 }
 .verdict-unknown {
-    background: #2d2a00;
+    background: rgba(45, 42, 0, 0.6);
+    backdrop-filter: blur(4px);
     border: 1px solid #d29922;
-    color: #e3b341;
-    padding: 8px 16px;
-    border-radius: 6px;
+    color: #fbd38d;
+    padding: 8px 18px;
+    border-radius: 8px;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
     display: inline-block;
     margin: 4px 0;
 }
 
-/* Hash display */
+/* Glowing Hash display */
 .hash-box {
-    background: #0d1117;
-    border: 1px solid #30363d;
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-left: 3px solid #58a6ff;
     border-radius: 6px;
-    padding: 10px 14px;
+    padding: 12px 16px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #58a6ff;
+    font-size: 13px;
+    color: #60a5fa;
     word-break: break-all;
-    margin: 6px 0;
+    margin: 8px 0;
+    box-shadow: inset 0 0 10px rgba(88, 166, 255, 0.05);
 }
 
-/* Section cards */
+/* Glass Section cards */
 .forensic-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 8px 0;
+    background: rgba(22, 27, 34, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Interactive Dashboard Cards */
+.premium-card {
+    background: rgba(22, 27, 34, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    height: 180px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: default;
+}
+.premium-card:hover {
+    transform: translateY(-5px);
+    border: 1px solid rgba(88, 166, 255, 0.4);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.2), 0 0 15px rgba(88, 166, 255, 0.1);
+    background: rgba(22, 27, 34, 0.6);
+}
+.premium-card-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #58a6ff 0%, #3182ce 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+.premium-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+}
+.premium-card-desc {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.4;
 }
 
 /* Step header */
 .step-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1.1rem;
+    gap: 12px;
+    font-size: 1.2rem;
+    font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    margin-bottom: 12px;
-    color: #58a6ff;
+    margin-bottom: 14px;
+    color: #60a5fa;
 }
 
-/* Results table */
+/* SaaS-style Results table */
 .results-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .results-table th {
-    background: #1f6feb;
-    color: white;
-    padding: 8px 12px;
+    background: rgba(31, 111, 235, 0.15);
+    backdrop-filter: blur(10px);
+    color: #93c5fd;
+    padding: 12px 16px;
     text-align: left;
+    font-family: 'Outfit', sans-serif;
     font-weight: 600;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .results-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid #30363d;
-    color: #e6edf3;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: #f1f5f9;
+    background: rgba(22, 27, 34, 0.3);
 }
-.results-table tr:hover td { background: #1c2128; }
+.results-table tr:last-child td { border-bottom: none; }
+.results-table tr:hover td { background: rgba(31, 111, 235, 0.05); }
 
-/* Header banner */
+/* Animated Header banner */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 .forensic-header {
-    background: linear-gradient(135deg, #1f6feb 0%, #0d419d 50%, #161b22 100%);
-    border-radius: 12px;
-    padding: 24px 32px;
-    margin-bottom: 24px;
-    border: 1px solid #30363d;
+    background: linear-gradient(-45deg, #0b1120, #0d2754, #1e0b36, #091c36);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    border-radius: 16px;
+    padding: 32px 40px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.forensic-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+    opacity: 0.04;
+    pointer-events: none;
+}
+.header-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(100deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+.header-subtitle {
+    color: #93c5fd;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+.header-authors {
+    color: #64748b;
+    font-size: 0.8rem;
+    margin-top: 12px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
 }
 </style>
 """,
@@ -411,13 +558,13 @@ with st.sidebar:
 st.markdown(
     """
 <div class="forensic-header">
-  <div style="font-size:1.6rem; font-weight:700; color:white; margin-bottom:4px;">
+  <div class="header-title">
     🔬 CCTV Video Forensics System
   </div>
-  <div style="color:#a5d6ff; font-size:0.95rem;">
+  <div class="header-subtitle">
     Analog CCTV Video Forensics: Acquisition, Integrity Verification &amp; Tamper Detection
   </div>
-  <div style="color:#8b949e; font-size:0.78rem; margin-top:8px;">
+  <div class="header-authors">
     Rajkushal Guduru &amp; Jeevan · Cyber Forensics · B.Tech CSE Cybersecurity · Amrita Vishwa Vidyapeetham · Semester VI
   </div>
 </div>
@@ -427,7 +574,7 @@ st.markdown(
 
 if not st.session_state.video_path:
     # Welcome screen
-    st.markdown("## Welcome — Upload a CCTV video in the sidebar to begin")
+    st.markdown("<h2 style='font-family:Outfit; margin-bottom: 1rem;'>Welcome — Upload a CCTV video in the sidebar to begin</h2>", unsafe_allow_html=True)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
@@ -461,24 +608,24 @@ if not st.session_state.video_path:
 - Hash verification proof
 """)
 
-    st.divider()
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### Methodology (from Cyber Forensics Report)")
     steps = [
-        ("01", "Video Acquisition", "Capture or obtain CCTV video footage for analysis"),
-        ("02", "Hash Generation", "Generate SHA-256 cryptographic hash to ensure video integrity"),
-        ("03", "Tampering Simulation", "Simulate frame deletion, cutting, and re-encoding"),
-        ("04", "Forensic Analysis", "Frame analysis, metadata inspection, and AI detection"),
-        ("05", "Result Generation", "Generate structured forensic report with all findings"),
+        ("01", "Video Acquisition", "Capture or obtain CCTV footage securely"),
+        ("02", "Hash Generation", "Generate SHA-256 cryptographic hash"),
+        ("03", "Tampering Simulation", "Simulate deletion, cuts, re-encoding"),
+        ("04", "Forensic Analysis", "Frame, metadata & AI-based inspection"),
+        ("05", "Result Generation", "Produce structured case report"),
     ]
     cols = st.columns(5)
     for col, (num, title, desc) in zip(cols, steps):
         with col:
             st.markdown(
                 f"""
-<div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center;height:160px;">
-  <div style="font-size:1.8rem;font-weight:700;color:#1f6feb;">{num}</div>
-  <div style="font-weight:600;color:#58a6ff;font-size:0.85rem;margin:4px 0;">{title}</div>
-  <div style="font-size:0.75rem;color:#8b949e;">{desc}</div>
+<div class="premium-card">
+  <div class="premium-card-number">{num}</div>
+  <div class="premium-card-title">{title}</div>
+  <div class="premium-card-desc">{desc}</div>
 </div>
 """,
                 unsafe_allow_html=True,
