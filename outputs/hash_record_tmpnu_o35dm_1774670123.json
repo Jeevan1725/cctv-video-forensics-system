@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "type": "sha256_hash_record",
+  "case_id": "CF-6A51599D",
+  "analyst": "System",
+  "timestamp_utc": "2026-03-28T03:55:23.751755+00:00",
+  "evidence": {
+    "filename": "tmpnu_o35dm.mp4",
+    "file_path": "C:\\Users\\jeeva\\Downloads\\cctv-video-anomaly-detection-main\\cctv-video-anomaly-detection-main\\temp\\tmpnu_o35dm.mp4",
+    "file_size_bytes": 11599158,
+    "sha256": "8438f6abb8ddd78226e5782ad5935fe3afd53b853974aaf739a4d0eb73b0d550",
+    "md5": "4ba3ca0f59c3a9581d08e011d7dad059"
+  },
+  "algorithm": "SHA-256",
+  "notes": "Hash generated per forensic evidence preservation protocol."
+}

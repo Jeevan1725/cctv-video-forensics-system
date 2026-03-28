@@ -1,0 +1,102 @@
+{
+  "report_metadata": {
+    "title": "CCTV Video Forensic Analysis Report",
+    "subtitle": "Acquisition, Integrity Verification & Tamper Detection",
+    "project": "Analog CCTV Video Forensics",
+    "institution": "Amrita Vishwa Vidyapeetham \u2014 B.Tech CSE Cybersecurity",
+    "course": "Cyber Forensics",
+    "case_id": "CF-954145DF",
+    "analyst": "Automated System",
+    "generated_at_utc": "2026-03-28T03:23:47.784550+00:00",
+    "report_version": "1.0"
+  },
+  "evidence_details": {
+    "filename": "tmpd53eschm.mp4",
+    "full_path": "C:\\Users\\jeeva\\Downloads\\cctv-video-anomaly-detection-main\\cctv-video-anomaly-detection-main\\temp\\tmpd53eschm.mp4",
+    "acquired_at_utc": "2026-03-28T03:23:47.784550+00:00"
+  },
+  "step1_acquisition": {
+    "status": "COMPLETE",
+    "description": "CCTV video footage acquired for forensic analysis.",
+    "source": "tmpd53eschm.mp4"
+  },
+  "step2_integrity_verification": {
+    "status": "COMPLETE",
+    "method": "SHA-256 Cryptographic Hashing",
+    "verdict": "HASH RECORDED \u2014 no reference provided for comparison",
+    "reference_hash": "N/A",
+    "evidence_hash": "60e09f67a63078fa334a9d4d69231f483f2c0adf8fd5422292d6fb8625103d69",
+    "match": null,
+    "description": "Hash values DO NOT match. Video file has been MODIFIED."
+  },
+  "step3_frame_analysis": {
+    "status": "COMPLETE",
+    "method": "Frame Count, FPS, Duration & Continuity Analysis",
+    "video_metadata": {
+      "frame_count": 1783,
+      "fps": 30.3028,
+      "duration_sec": 58.8394,
+      "resolution": "1440x1080",
+      "codec": "h264"
+    },
+    "gap_detection": {
+      "verdict": "NO GAPS DETECTED",
+      "gaps_found": 0
+    },
+    "duplicate_detection": {
+      "verdict": "DUPLICATE FRAMES FOUND \u2014 Possible Freeze/Loop",
+      "duplicates_found": 1650
+    },
+    "abrupt_change_detection": {
+      "verdict": "NO ABRUPT CHANGES",
+      "changes_found": 0
+    },
+    "overall_verdict": "TAMPERING INDICATORS FOUND: 1650 duplicate frame(s)",
+    "issues": [
+      "1650 duplicate frame(s)"
+    ]
+  },
+  "step4_ai_detection": {
+    "status": "COMPLETE",
+    "method": "Convolutional Autoencoder \u2014 Reconstruction Error Analysis",
+    "model": "ConvolutionalAutoencoder (256-dim latent, trained on UCSD Ped2)",
+    "frame_count": 1783,
+    "anomaly_count": 1783,
+    "anomaly_rate": 1.0,
+    "threshold": 0.005069,
+    "device": "cpu",
+    "processing_sec": 33.042199399999845,
+    "verdict": "AI detected 1783 anomalous frames (100.0% anomaly rate)."
+  },
+  "step5_tampering_simulation": {
+    "status": "NOT PERFORMED",
+    "description": "Tampering simulation was not run."
+  },
+  "overall_verdict": {
+    "verdict": "\u26a0\ufe0f  TAMPERING LIKELY",
+    "confidence": "HIGH",
+    "indicators": [
+      "Hash mismatch \u2014 file was modified",
+      "1650 duplicate frame(s)",
+      "High AI anomaly rate (100.0%)"
+    ],
+    "summary": "Forensic analysis found the following indicators of tampering: Hash mismatch \u2014 file was modified; 1650 duplicate frame(s); High AI anomaly rate (100.0%)."
+  },
+  "preliminary_results_table": [
+    {
+      "test_case": "Modified video",
+      "detection_method": "Hash verification (SHA-256)",
+      "result": "Detected \u2014 Hash Mismatch"
+    },
+    {
+      "test_case": "Loop-inserted video",
+      "detection_method": "Duplicate frame detection",
+      "result": "Detected \u2014 1650 duplicate(s)"
+    },
+    {
+      "test_case": "Video with anomalous content",
+      "detection_method": "AI reconstruction error (autoencoder)",
+      "result": "Detected \u2014 1783 anomalous frame(s)"
+    }
+  ]
+}

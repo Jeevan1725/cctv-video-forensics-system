@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "type": "sha256_hash_record",
+  "case_id": "CF-954145DF",
+  "analyst": "System",
+  "timestamp_utc": "2026-03-28T03:19:40.190141+00:00",
+  "evidence": {
+    "filename": "tmpt8pp_36e.mp4",
+    "file_path": "C:\\Users\\jeeva\\Downloads\\cctv-video-anomaly-detection-main\\cctv-video-anomaly-detection-main\\temp\\tmpt8pp_36e.mp4",
+    "file_size_bytes": 25683454,
+    "sha256": "60e09f67a63078fa334a9d4d69231f483f2c0adf8fd5422292d6fb8625103d69",
+    "md5": "0add45b4f2b620384d3d5fb4e58638cd"
+  },
+  "algorithm": "SHA-256",
+  "notes": "Hash generated per forensic evidence preservation protocol."
+}
